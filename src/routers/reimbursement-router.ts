@@ -162,7 +162,6 @@ reimbursementRouter.patch("", [
     ) {
       //call service function using req.body
       //console.log(req.body);
-      console.log("does if statement");
 
       let update = await updateReimbursement(req.body);
       res.json(update);

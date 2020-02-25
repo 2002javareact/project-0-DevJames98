@@ -118,7 +118,7 @@ export async function daoUpdateReimbursement(
   let client: PoolClient;
   try {
     client = await connectionPool.connect();
-    console.log("in dao");
+    //console.log("in dao");
 
     let reimbursementId = newReimbursement.reimbursementId;
     //the non updated reimbursement row
@@ -128,14 +128,36 @@ export async function daoUpdateReimbursement(
       [reimbursementId]
     )).rows[0];
 
+    //console.log(oldReimbursement);
     //use default to set new variables (new vars to old vars if they exist)
-    //oldReimbursement
-    console.log(oldReimbursement);
+    oldReimbursement.author =
+      newReimbursement.author || oldReimbursement.author;
+    oldReimbursement.amount =
+      newReimbursement.amount || oldReimbursement.amount;
+    oldReimbursement.date_submitted =
+      newReimbursement.dateSubmitted || oldReimbursement.date_submitted;
+    oldReimbursement.date_resolved =
+      newReimbursement.dateResolved || oldReimbursement.date_resolved;
+    oldReimbursement.description =
+      newReimbursement.description || oldReimbursement.description;
+    oldReimbursement.resolver =
+      newReimbursement.resolver || oldReimbursement.resolver;
+    oldReimbursement.status =
+      newReimbursement.status || oldReimbursement.status;
+    oldReimbursement.type = newReimbursement.type || oldReimbursement.type;
 
     await client.query(
       'UPDATE project0."Reimbursement" set author = $1, amount = $2, date_submitted = $3, date_resolved = $4, description = $5, resolver = $6, status = $7, type = $8 WHERE reimbursement_id = $9',
       [
-        //oldReimbursement
+        oldReimbursement.author,
+        oldReimbursement.amount,
+        oldReimbursement.date_submitted,
+        oldReimbursement.date_resolved,
+        oldReimbursement.description,
+        oldReimbursement.resolver,
+        oldReimbursement.status,
+        oldReimbursement.type,
+        reimbursementId
       ]
     );
     //console.log(oldUser);

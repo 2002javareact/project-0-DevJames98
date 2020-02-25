@@ -28,7 +28,5 @@ export async function saveOneReimbursement(
 export async function updateReimbursement(
   newReimbursement: Reimbursement
 ): Promise<Reimbursement> {
-  console.log("in service");
-
   return await daoUpdateReimbursement(newReimbursement);
 }
