@@ -134,6 +134,7 @@ SELECT *
 FROM project0."Reimbursement" R 
 inner join project0."ReimbursementStatus" RS on R.status = RS.status_id 
 WHERE RS.status_id = 1
+order by R.date_submitted ;
 
 --select *
 --from project0."Reimbursement" R

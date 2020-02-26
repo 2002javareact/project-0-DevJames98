@@ -41,7 +41,7 @@ export const authFactory = (roles: string[]) => {
         }
       }
       if (!allowed) {
-        res.status(403).send("You are UnAuthorized for this endpoint");
+        res.status(403).send("The incoming token has expired");
       }
     }
   };
@@ -52,11 +52,14 @@ export const authCheckId = (req, res, next) => {
   //TODO
   // Allow through automatically, people that aren't users
 
-  if (req.session.user.role.role === "Admin") {
+  if (
+    req.session.user.role.role === "Admin" ||
+    req.session.user.role.role === "Finance-Manager"
+  ) {
     next();
   } else if (req.session.user.userId === +req.params.id) {
     next();
   } else {
-    res.status(403).send("You are UnAuthorized for this endpoint");
+    res.status(403).send("The incoming token has expired");
   }
 };

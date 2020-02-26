@@ -126,7 +126,7 @@ reimbursementRouter.post(
 reimbursementRouter.patch("", [
   authFactory(["Admin", "Finance-Manager"]),
   async (req, res) => {
-    console.log("i reached the endpoint");
+    //console.log("i reached the endpoint");
 
     let {
       reimbursementId,

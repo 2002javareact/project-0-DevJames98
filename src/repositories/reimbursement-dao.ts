@@ -16,7 +16,7 @@ export async function daofindReimbursementByStatusId(
     client = await connectionPool.connect();
     //FIX TO ADD ORDER BY TO QUERY
     let results = await client.query(
-      'SELECT * FROM project0."Reimbursement" R inner join project0."ReimbursementStatus" RS on R.status = RS.status_id WHERE RS.status_id = $1',
+      'SELECT * FROM project0."Reimbursement" R inner join project0."ReimbursementStatus" RS on R.status = RS.status_id WHERE RS.status_id = $1 ORDER BY R.date_submitted',
       [id]
     );
     if (results.rowCount === 0) {
@@ -47,7 +47,7 @@ export async function daofindReimbursementByUserId(
     client = await connectionPool.connect();
     //FIX TO ADD ORDER BY TO QUERY
     let results = await client.query(
-      'SELECT * FROM project0."Reimbursement" R WHERE R.author = $1',
+      'SELECT * FROM project0."Reimbursement" R WHERE R.author = $1 order by R.date_submitted',
       [id]
     );
     if (results.rowCount === 0) {
