@@ -1,30 +1,6 @@
 // big rule, always call either res or next
 //TO EDIT
 
-export const authAdminMiddleware = (req, res, next) => {
-  if (!req.session.user) {
-    res.status(401).send("Please Login");
-  } else if (req.session.user.role === "Admin") {
-    next();
-  } else {
-    res.status(403).send("You are UnAuthorized for this endpoint");
-  }
-};
-
-export const authUserMiddleware = (req, res, next) => {
-  if (!req.session.user) {
-    res.status(401).send("Please Login");
-  } else if (
-    req.session.user.role === "Admin" ||
-    req.session.user.id === +req.params.id
-  ) {
-    next();
-  } else {
-    res.status(403).send("You are UnAuthorized for this endpoint");
-  }
-};
-// I give it a variable config input
-// it gives me a function
 export const authFactory = (roles: string[]) => {
   return (req, res, next) => {
     // this checks that you are logged in

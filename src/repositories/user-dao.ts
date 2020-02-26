@@ -4,7 +4,6 @@ import { User } from "../models/User";
 import { BadCredentialsError } from "../errors/BadCredentialsError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { userDTOToUserConverter } from "../util/user-dto-to-user-converter";
-import { UserDTO } from "../dtos/UserDTO";
 import { UserNotFoundError } from "../errors/UserNotFoundError";
 import { findUserById } from "../services/user-service";
 
@@ -40,7 +39,6 @@ export async function daoFindUserByUsernameAndPassword(
 // this function gets anf formats all users
 export async function daoFindAllUsers(): Promise<User[]> {
   let client: PoolClient;
-  //console.log("got here");
 
   try {
     client = await connectionPool.connect();
@@ -60,12 +58,10 @@ export async function daoUpdateUser(newUser: User): Promise<User> {
   let client: PoolClient;
   try {
     client = await connectionPool.connect();
-    //console.log("got here");
 
     let userId = newUser.userId;
     //the non updated user row
     let oldUser = await findUserById(userId);
-    //console.log(oldUser);
 
     //use default to set new variables (new vars to old vars if they exist)
     oldUser.username = newUser.username || oldUser.username;
@@ -73,8 +69,6 @@ export async function daoUpdateUser(newUser: User): Promise<User> {
     oldUser.lastName = newUser.lastName || oldUser.lastName;
     oldUser.email = newUser.email || oldUser.email;
     oldUser.role = newUser.role || oldUser.role;
-
-    //console.log(oldUser);
 
     // send an insert that uses the id above and the user input
     await client.query(
@@ -88,14 +82,9 @@ export async function daoUpdateUser(newUser: User): Promise<User> {
         userId
       ]
     );
-    //console.log(result);
 
-    // put that newly genertaed user_id on the DTO
-    //newUser.user_id = result.rows[0].user_id;
     return oldUser; // convert and send back
   } catch (e) {
-    //console.log(e);
-
     throw new InternalServerError();
   } finally {
     client && client.release();

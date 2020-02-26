@@ -1,15 +1,9 @@
 import * as express from "express";
 import { Reimbursement } from "../models/Reimbursement";
-import {
-  authAdminMiddleware,
-  authUserMiddleware,
-  authFactory,
-  authCheckId
-} from "../middleware/auth-middleware";
+import { authFactory, authCheckId } from "../middleware/auth-middleware";
 import { ReimbursementDTO } from "../dtos/ReimbursementDTO";
 import {
   findReimbursementByStatusId,
-  findReimbursementByUserId,
   saveOneReimbursement,
   updateReimbursement
 } from "../services/reimbursement-service";
@@ -30,7 +24,6 @@ reimbursementRouter.get(
         let reimbursement: Reimbursement[] = await findReimbursementByStatusId(
           id
         );
-        //let reimbursement = await findReimbursementByStatusId(id);
         res.json(reimbursement);
       } catch (e) {
         res.status(e.status).send(e.message);
@@ -53,7 +46,6 @@ reimbursementRouter.get(
         let reimbursement: Reimbursement[] = await findReimbursementByStatusId(
           id
         );
-        //let reimbursement = await findReimbursementByUserId(id);
         res.json(reimbursement);
       } catch (e) {
         res.status(e.status).send(e.message);
@@ -126,8 +118,6 @@ reimbursementRouter.post(
 reimbursementRouter.patch("", [
   authFactory(["Admin", "Finance-Manager"]),
   async (req, res) => {
-    //console.log("i reached the endpoint");
-
     let {
       reimbursementId,
       author,
@@ -161,7 +151,6 @@ reimbursementRouter.patch("", [
         type)
     ) {
       //call service function using req.body
-      //console.log(req.body);
 
       let update = await updateReimbursement(req.body);
       res.json(update);

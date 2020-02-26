@@ -113,43 +113,43 @@ insert into "Reimbursement"(author,amount,date_submitted,date_resolved,descripti
 --select * from "Reimbursement";
 
 --Test query to find user by username and password
-SELECT * 
-FROM project0."User" U 
-inner join project0."Role" R on U."role" = R.role_id  
-WHERE username = 'devjames98'  and "password" = 'password';
+--SELECT * 
+--FROM project0."User" U 
+--inner join project0."Role" R on U."role" = R.role_id  
+--WHERE username = 'devjames98'  and "password" = 'password';
 
 --Test query to find all users
-SELECT * 
-FROM project0."User" U 
-inner join project0."Role" R on U."role" = R.role_id;
+--SELECT * 
+--FROM project0."User" U 
+--inner join project0."Role" R on U."role" = R.role_id;
 
-select * from project0."User" U
-where U.user_id = 1;
+--select * from project0."User" U
+--where U.user_id = 1;
 
 --update project0."User" 
 --set username = 'testUpdate'
 --where user_id = 1;
 
-SELECT * 
-FROM project0."Reimbursement" R 
-inner join project0."ReimbursementStatus" RS on R.status = RS.status_id 
-WHERE RS.status_id = 1
-order by R.date_submitted ;
+--SELECT * 
+--FROM project0."Reimbursement" R 
+--inner join project0."ReimbursementStatus" RS on R.status = RS.status_id 
+--WHERE RS.status_id = 1
+--order by R.date_submitted ;
 
 --select *
 --from project0."Reimbursement" R
 --where author = 1;
 
 --Saving a reimbursement
-INSERT INTO project0."Reimbursement" (author,amount,date_submitted,date_resolved,description,resolver,status,"type") 
-values (4,123.45,'2020-05-05','2020-05-08','dummy lodge',4,1,1);
+--INSERT INTO project0."Reimbursement" (author,amount,date_submitted,date_resolved,description,resolver,status,"type") 
+--values (4,123.45,'2020-05-05','2020-05-08','dummy lodge',4,1,1);
 
 --find reimbursement by id
-select *
-from project0."Reimbursement" R
-where R.reimbursement_id = 1;
+--select *
+--from project0."Reimbursement" R
+--where R.reimbursement_id = 1;
 
 --update reimbursement
-update project0."Reimbursement" 
-set amount = 333
-where reimbursement_id = 1;
+--update project0."Reimbursement" 
+--set amount = 333
+--where reimbursement_id = 1;
