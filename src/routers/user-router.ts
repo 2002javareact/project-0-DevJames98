@@ -63,9 +63,10 @@ userRouter.patch("", [
     } = req.body;
     if (userId && (username || firstName || lastName || email || role)) {
       //call service function using req.body
-
+      //try catch for await function
       let update = await updateUser(req.body);
       res.json(update);
     }
   }
 ]);
+//fix error handling
