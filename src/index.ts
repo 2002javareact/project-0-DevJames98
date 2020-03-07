@@ -11,6 +11,7 @@ import { sessionMiddleware } from "./middleware/session-middleware";
 import { userRouter } from "./routers/user-router";
 import { findUserByUsernameAndPassword } from "./services/user-service";
 import { reimbursementRouter } from "./routers/reimbursement-router";
+import { corsFilter } from "./middleware/cors-filter";
 
 //create express object
 const ers = express();
@@ -24,6 +25,9 @@ ers.use(loggingMiddleware);
 
 //Logs user to their session
 ers.use(sessionMiddleware);
+
+//Add cors filter middleware
+ers.use(corsFilter);
 
 //Validate Login Information
 //Login
