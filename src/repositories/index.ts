@@ -9,7 +9,7 @@ import { Pool } from "pg";
 // functions have to give that connection back, when they are done
 
 export const connectionPool: Pool = new Pool({
-  host: process.env["HOST"], //endpoint for db
+  host: process.env["MY_HOST"], //endpoint for db
   user: process.env["WEBFLICKS_USER"], //user name
   password: process.env["WEBFLICKS_PASSWORD"], //user password
   database: process.env["DB_NAME"], //db name
