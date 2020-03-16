@@ -141,7 +141,25 @@ export async function daoUpdateReimbursement(
       ]
     );
 
-    return oldReimbursement; // convert and send back
+    //return oldReimbursement; // convert and send back
+    return reimbursementDTOToReimbursementConverter(oldReimbursement);
+  } catch (e) {
+    throw new InternalServerError();
+  } finally {
+    client && client.release();
+  }
+}
+
+// ADDED FOR PROJECT 1
+export async function daoFindAllReimbursements(): Promise<Reimbursement[]> {
+  let client: PoolClient;
+
+  try {
+    client = await connectionPool.connect();
+    let results = await client.query(
+      'select R.reimbursement_id , U1.username as author, R.amount, R.date_submitted, R.date_resolved, R.description, U2.username as resolver, RS.status, RT."type" from project0."Reimbursement" R inner join project0."ReimbursementStatus" RS on R.status = RS.status_id inner join project0."ReimbursementType" RT on R."type" = RT.type_id inner join project0."User" U1 on R.author = U1.user_id inner join project0."User" U2 on R.resolver = U2.user_id order by R.date_submitted;'
+    );
+    return results.rows.map(reimbursementDTOToReimbursementConverter);
   } catch (e) {
     throw new InternalServerError();
   } finally {

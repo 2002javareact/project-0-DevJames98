@@ -4,7 +4,8 @@ import {
   daofindReimbursementByStatusId,
   daofindReimbursementByUserId,
   daoSaveOneReimbursement,
-  daoUpdateReimbursement
+  daoUpdateReimbursement,
+  daoFindAllReimbursements
 } from "../repositories/reimbursement-dao";
 
 export async function findReimbursementByStatusId(
@@ -29,4 +30,9 @@ export async function updateReimbursement(
   newReimbursement: Reimbursement
 ): Promise<Reimbursement> {
   return await daoUpdateReimbursement(newReimbursement);
+}
+
+//ADDED FOR PROJECT 1
+export async function findAllReimbursements(): Promise<Reimbursement[]> {
+  return await daoFindAllReimbursements();
 }

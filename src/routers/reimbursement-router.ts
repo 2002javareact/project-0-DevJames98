@@ -5,10 +5,25 @@ import { ReimbursementDTO } from "../dtos/ReimbursementDTO";
 import {
   findReimbursementByStatusId,
   saveOneReimbursement,
-  updateReimbursement
+  updateReimbursement,
+  findAllReimbursements,
+  findReimbursementByUserId
 } from "../services/reimbursement-service";
 
 export const reimbursementRouter = express.Router();
+
+//ADDED FOR PROJECT 1
+//find all reimbursements
+reimbursementRouter.get("", [
+  authFactory(["Admin", "Finance-Manager"]),
+  async (req, res) => {
+    //get all of our users
+    //format them to json
+    //use the response obj to send them back
+    let reimbursements: Reimbursement[] = await findAllReimbursements();
+    res.json(reimbursements); // this will format the object into json and send it back
+  }
+]);
 
 //find reimbursement by status
 reimbursementRouter.get(
@@ -43,7 +58,7 @@ reimbursementRouter.get(
       res.sendStatus(400);
     } else {
       try {
-        let reimbursement: Reimbursement[] = await findReimbursementByStatusId(
+        let reimbursement: Reimbursement[] = await findReimbursementByUserId(
           id
         );
         res.json(reimbursement);

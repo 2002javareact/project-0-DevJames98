@@ -43,7 +43,7 @@ export async function daoFindAllUsers(): Promise<User[]> {
   try {
     client = await connectionPool.connect();
     let results = await client.query(
-      'SELECT * FROM project0."User" U inner join project0."Role" R on U."role" = R.role_id'
+      'SELECT * FROM project0."User" U inner join project0."Role" R on U."role" = R.role_id ORDER BY U.user_id'
     );
     return results.rows.map(userDTOToUserConverter);
   } catch (e) {
